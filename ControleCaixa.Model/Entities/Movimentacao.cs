@@ -1,0 +1,52 @@
+﻿using ControleCaixa.Model.Enums;
+
+namespace ControleCaixa.Model;
+
+public class Movimentacao
+{
+    public int Id { get; private set; }
+
+    public string Descricao { get; private set; }
+
+    public TipoMovimentacao Tipo { get; private set; }
+
+    public Categoria Categoria { get; private set; }
+
+    public decimal Valor { get; private set; }
+
+    public DateTime DataMovimento { get; private set; }
+    public DateTime DataAlteracao { get; private set; } 
+    public bool Lixeira { get; private set; }
+
+    public Movimentacao(){}
+
+    public Movimentacao(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataMovimento, DateTime dataAlteracao, bool lixeira)
+    {
+        Descricao = descricao;
+        Tipo = tipo;
+        Categoria = categoria;
+        Valor = valor;
+        DataMovimento = dataMovimento;
+        DataAlteracao = dataAlteracao;
+    }
+
+    public void Atualizar(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataAlteracao)
+    {
+        Descricao = descricao;
+        Tipo = tipo;
+        Categoria = categoria;
+        Valor = valor;
+        DataAlteracao = dataAlteracao;
+    }
+    
+    public void DefinirTipo(TipoMovimentacao tipo) => Tipo = tipo;
+
+    public void DefinirCategoria(Categoria categoria) => Categoria = categoria;
+    
+    public void DefinirValor(decimal valor) => Valor = valor;
+    
+    public void DefinirDescricao(string descricao) => Descricao = descricao;
+    
+    public void EnviarParaLixeira() => Lixeira = true;
+    
+}
