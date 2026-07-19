@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3ACDFCB2-3B1E-467D-8D27-DBE6FF84FB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleCaixa.UI", "ControleCaixa.UI\ControleCaixa.UI.csproj", "{D963945F-768C-483C-B85F-882E2225237D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleCaixa.Business", "ControleCaixa.Business\ControleCaixa.Business.csproj", "{84D47E0F-3054-460B-AA75-EF09730E5AD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleCaixa.Data", "ControleCaixa.Data\ControleCaixa.Data.csproj", "{C7F5E349-CB00-4520-A8AC-A68A8B82033D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleCaixa.Model", "ControleCaixa.Model\ControleCaixa.Model.csproj", "{36994244-3A6E-4813-AE06-C953E4220147}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1C27AF0F-FFE9-451A-9EEB-27EB99B15285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleCaixa.Tests", "ControleCaixa.Tests\ControleCaixa.Tests.csproj", "{AC39E872-299E-4E15-BC86-53D73179CC31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D963945F-768C-483C-B85F-882E2225237D} = {3ACDFCB2-3B1E-467D-8D27-DBE6FF84FB9B}
+		{84D47E0F-3054-460B-AA75-EF09730E5AD9} = {3ACDFCB2-3B1E-467D-8D27-DBE6FF84FB9B}
+		{C7F5E349-CB00-4520-A8AC-A68A8B82033D} = {3ACDFCB2-3B1E-467D-8D27-DBE6FF84FB9B}
+		{36994244-3A6E-4813-AE06-C953E4220147} = {3ACDFCB2-3B1E-467D-8D27-DBE6FF84FB9B}
+		{AC39E872-299E-4E15-BC86-53D73179CC31} = {1C27AF0F-FFE9-451A-9EEB-27EB99B15285}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D963945F-768C-483C-B85F-882E2225237D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D963945F-768C-483C-B85F-882E2225237D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D963945F-768C-483C-B85F-882E2225237D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D963945F-768C-483C-B85F-882E2225237D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D47E0F-3054-460B-AA75-EF09730E5AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D47E0F-3054-460B-AA75-EF09730E5AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D47E0F-3054-460B-AA75-EF09730E5AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D47E0F-3054-460B-AA75-EF09730E5AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7F5E349-CB00-4520-A8AC-A68A8B82033D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F5E349-CB00-4520-A8AC-A68A8B82033D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F5E349-CB00-4520-A8AC-A68A8B82033D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F5E349-CB00-4520-A8AC-A68A8B82033D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36994244-3A6E-4813-AE06-C953E4220147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36994244-3A6E-4813-AE06-C953E4220147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36994244-3A6E-4813-AE06-C953E4220147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36994244-3A6E-4813-AE06-C953E4220147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC39E872-299E-4E15-BC86-53D73179CC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC39E872-299E-4E15-BC86-53D73179CC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC39E872-299E-4E15-BC86-53D73179CC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC39E872-299E-4E15-BC86-53D73179CC31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
