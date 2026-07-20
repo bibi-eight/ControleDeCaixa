@@ -16,32 +16,22 @@ public class Movimentacao
     
     public int CaixaId { get; private set; }
 
-    public Caixa Caixa { get; private set; } = null!;
+    public Caixa Caixa { get; private set; }
 
-    public DateTime DataMovimento { get; private set; }
+    public DateTime DataCriacao { get; private set; }
     public DateTime DataAlteracao { get; private set; } 
     public bool Lixeira { get; private set; }     
 
      public Movimentacao(){}
 
-    public Movimentacao(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataMovimento, DateTime dataAlteracao, bool lixeira, int caixaId)
+    public Movimentacao(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, int caixaId)
     {
         Descricao = descricao;
         Tipo = tipo;
         Categoria = categoria;
         Valor = valor;
-        DataMovimento = dataMovimento;
-        DataAlteracao = dataAlteracao;
+        DataCriacao = DateTime.Now;
         CaixaId = caixaId;
-    }
-
-    public void Atualizar(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataAlteracao)
-    {
-        Descricao = descricao;
-        Tipo = tipo;
-        Categoria = categoria;
-        Valor = valor;
-        DataAlteracao = dataAlteracao;
     }
     
     public void DefinirTipo(TipoMovimentacao tipo) => Tipo = tipo;
@@ -51,6 +41,8 @@ public class Movimentacao
     public void DefinirValor(decimal valor) => Valor = valor;
     
     public void DefinirDescricao(string descricao) => Descricao = descricao;
+    
+    public void DefinirDataDeAlteracao(DateTime dataAlteracao) => DataAlteracao = dataAlteracao;
     
     public void EnviarParaLixeira() => Lixeira = true;
     
