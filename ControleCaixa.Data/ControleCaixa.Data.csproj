@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ControleCaixa.Model\ControleCaixa.Model.csproj" />
+    </ItemGroup>
+
 </Project>

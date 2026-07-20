@@ -8,4 +8,10 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ControleCaixa.Business\ControleCaixa.Business.csproj" />
+      <ProjectReference Include="..\ControleCaixa.Data\ControleCaixa.Data.csproj" />
+      <ProjectReference Include="..\ControleCaixa.Model\ControleCaixa.Model.csproj" />
+    </ItemGroup>
+
 </Project>
