@@ -1,6 +1,6 @@
 ﻿using ControleCaixa.Model.Enums;
 
-namespace ControleCaixa.Model;
+namespace ControleCaixa.Model.Entities;
 
 public class Movimentacao
 {

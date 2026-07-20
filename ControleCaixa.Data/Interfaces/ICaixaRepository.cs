@@ -1,4 +1,4 @@
-using ControleCaixa.Model;
+using ControleCaixa.Model.Entities;
 
 namespace ControleCaixa.Data.Interfaces;
 
