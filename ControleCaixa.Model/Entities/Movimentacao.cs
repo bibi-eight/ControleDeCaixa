@@ -13,14 +13,18 @@ public class Movimentacao
     public Categoria Categoria { get; private set; }
 
     public decimal Valor { get; private set; }
+    
+    public int CaixaId { get; private set; }
+
+    public Caixa Caixa { get; private set; } = null!;
 
     public DateTime DataMovimento { get; private set; }
     public DateTime DataAlteracao { get; private set; } 
-    public bool Lixeira { get; private set; }
+    public bool Lixeira { get; private set; }     
 
-    public Movimentacao(){}
+     public Movimentacao(){}
 
-    public Movimentacao(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataMovimento, DateTime dataAlteracao, bool lixeira)
+    public Movimentacao(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataMovimento, DateTime dataAlteracao, bool lixeira, int caixaId)
     {
         Descricao = descricao;
         Tipo = tipo;
@@ -28,6 +32,7 @@ public class Movimentacao
         Valor = valor;
         DataMovimento = dataMovimento;
         DataAlteracao = dataAlteracao;
+        CaixaId = caixaId;
     }
 
     public void Atualizar(string descricao, TipoMovimentacao tipo, Categoria categoria, decimal valor, DateTime dataAlteracao)
