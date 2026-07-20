@@ -1,0 +1,47 @@
+﻿using ControleCaixa.Data.Context;
+using ControleCaixa.Data.Interfaces;
+using ControleCaixa.Model.Entities;
+using ControleCaixa.Model.Enums;
+using Microsoft.EntityFrameworkCore;
+
+namespace ControleCaixa.Data;
+
+public class MovimentacaoRepository : IMovimentacaoRepository
+{
+    private readonly AppDbContext _context;
+
+    public MovimentacaoRepository(AppDbContext context)
+    {
+        _context = context;
+    }
+    
+    public void Adicionar(Movimentacao entity)
+    {
+        _context.Movimentacoes.Add(entity);
+    }
+
+    public void Atualizar(Movimentacao entity)
+    {
+        _context.Movimentacoes.Update(entity);
+    }
+
+    public void Apagar(Func<Movimentacao, bool> predicate)
+    {
+        _context.Movimentacoes.RemoveRange(_context.Movimentacoes.Where(predicate));
+    }
+
+    public async Task<Movimentacao> ObterPorId(int movimentacaoId)
+    {
+        return await  _context.Movimentacoes.FirstOrDefaultAsync(x => x.Id == movimentacaoId);
+    }
+
+    public async Task<IEnumerable<Movimentacao>> ObterPorCaixaId(int caixaId)
+    {
+        return await _context.Movimentacoes.Where(x => x.CaixaId == caixaId).ToListAsync();
+    }
+
+    public async Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo)
+    {
+        return await _context.Movimentacoes.Where(x => x.CaixaId == caixaId && x.Tipo == (TipoMovimentacao)tipo).ToListAsync();
+    }
+}
