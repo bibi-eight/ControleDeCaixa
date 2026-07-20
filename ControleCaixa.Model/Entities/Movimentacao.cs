@@ -49,4 +49,21 @@ public class Movimentacao
     
     public void EnviarParaLixeira() => Lixeira = true;
     
+    public bool EhEntrada()
+    {
+        return Tipo == TipoMovimentacao.Entrada;
+    }
+
+    public bool EhSaida()
+    {
+        return Tipo == TipoMovimentacao.Saida;
+    }
+    
+    public decimal ObterValorAssinado()
+    {
+        return EhEntrada()
+            ? Valor
+            : -Valor;
+    }
+    
 }
