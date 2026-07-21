@@ -1,3 +1,5 @@
+using FluentValidation.Results;
+
 namespace ControleCaixa.Business.Results;
 
 public class Result
@@ -17,6 +19,15 @@ public class Result
         {
             Success = false,
             Errors = errors.ToList()
+        };
+    
+    public static Result Fail(ValidationResult validationResult)
+        => new()
+        {
+            Success = false,
+            Errors = validationResult.Errors
+                .Select(x => x.ErrorMessage)
+                .ToList()
         };
 }
 
