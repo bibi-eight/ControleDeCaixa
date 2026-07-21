@@ -31,6 +31,7 @@ public class Movimentacao
         Categoria = categoria;
         Valor = valor;
         DataCriacao = DateTime.Now;
+        DataAlteracao = DateTime.Now;
         CaixaId = caixaId;
     }
     
