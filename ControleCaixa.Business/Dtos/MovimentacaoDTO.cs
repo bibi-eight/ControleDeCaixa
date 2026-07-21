@@ -1,12 +1,14 @@
+using ControleCaixa.Model.Enums;
+
 namespace ControleCaixa.Business.Dtos;
 
 public class MovimentacaoDTO
 {
     public string Descricao { get; private set; }
 
-    public int Tipo { get; private set; }
+    public TipoMovimentacao Tipo { get; private set; }
 
-    public int Categoria { get; private set; }
+    public Categoria Categoria { get; private set; }
 
     public decimal Valor { get; private set; }
     
@@ -19,9 +21,9 @@ public class MovimentacaoEditarDTO
 
     public string Descricao { get; private set; }
 
-    public int Tipo { get; private set; }
+    public TipoMovimentacao Tipo { get; private set; }
 
-    public int Categoria { get; private set; }
+    public Categoria Categoria { get; private set; }
 
     public decimal Valor { get; private set; }
     
