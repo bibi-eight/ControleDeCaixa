@@ -12,7 +12,7 @@ public interface ICaixaService
     
     void CadastrarCaixa(CaixaDTO caixa);
     
-    void EditarCaixa(CaixaEditarDTO caixa);
+    void EditarCaixa(CaixaDTO caixa);
     
     void ExcluirAsync(int id);
 }

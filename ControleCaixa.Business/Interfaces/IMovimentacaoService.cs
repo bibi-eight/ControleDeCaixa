@@ -1,4 +1,5 @@
 using ControleCaixa.Business.Dtos;
+using ControleCaixa.Business.Results;
 using ControleCaixa.Model.Entities;
 
 namespace ControleCaixa.Business.Interfaces;
@@ -11,9 +12,9 @@ public interface IMovimentacaoService
     
     Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo);
     
-    void CadastrarMovimentacao(MovimentacaoDTO movimentacao);
+    Task<Result> CadastrarMovimentacao(MovimentacaoDTO movimentacao);
     
-    void EditarMovimentacao(MovimentacaoEditarDTO movimentacao);
+    Task<Result> EditarMovimentacao(MovimentacaoDTO movimentacao, int movimentacaoId);
     
-    void ExcluirAsync(int id);
+    Task<Result> ExcluirAsync(int id);
 }
