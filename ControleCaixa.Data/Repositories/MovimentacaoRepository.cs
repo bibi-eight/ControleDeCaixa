@@ -1,4 +1,5 @@
-﻿using ControleCaixa.Data.Context;
+﻿using System.Linq.Expressions;
+using ControleCaixa.Data.Context;
 using ControleCaixa.Data.Interfaces;
 using ControleCaixa.Model.Entities;
 using ControleCaixa.Model.Enums;
@@ -27,7 +28,13 @@ public class MovimentacaoRepository : IMovimentacaoRepository
 
     public void Apagar(Func<Movimentacao, bool> predicate)
     {
-        _context.Movimentacoes.RemoveRange(_context.Movimentacoes.Where(predicate));
+        var movimentacoes = _context.Movimentacoes
+            .Where(predicate);
+
+        foreach (var movimentacao in movimentacoes)
+        {
+            movimentacao.EnviarParaLixeira();
+        }
     }
 
     public async Task<Movimentacao> ObterPorId(int movimentacaoId)
