@@ -43,7 +43,7 @@ public class Movimentacao
     
     public void DefinirDescricao(string descricao) => Descricao = descricao;
     
-    public void DefinirDataDeAlteracao(DateTime dataAlteracao) => DataAlteracao = dataAlteracao;
+    public void DefinirDataDeAlteracao() => DataAlteracao = DateTime.Now;
     
     public void EnviarParaLixeira() => Lixeira = true;
     
