@@ -19,11 +19,12 @@ public class Caixa
     
     public Caixa(){}
 
-    public Caixa(string nome, decimal saldoMinimo, DateTime dataCriacao)
+    public Caixa(string nome, decimal saldoMinimo)
     {
         Nome = nome;
         SaldoMinimo = saldoMinimo;
         DataCriacao = DateTime.Now;
+        DataAlteracao = DateTime.Now;
     }
     
     public void DefinirNome(string nome) => Nome = nome;
