@@ -15,4 +15,5 @@ public interface IMovimentacaoRepository
 
     Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo);
     
+    Task<IEnumerable<Movimentacao>> ObterTodas();
 }
