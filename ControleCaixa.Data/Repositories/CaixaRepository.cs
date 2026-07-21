@@ -27,7 +27,13 @@ public class CaixaRepository : ICaixaRepository
 
     public void Apagar(Func<Caixa, bool> predicate)
     {
-        _context.RemoveRange(_context.Caixas.Where(predicate));
+        var caixas = _context.Caixas
+            .Where(predicate);
+
+        foreach (var caixa in caixas)
+        {
+            caixa.EnviarParaLixeira();
+        }    
     }
 
     public async Task<Caixa> ObterPorId(int caixaId)
