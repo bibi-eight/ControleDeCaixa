@@ -15,6 +15,6 @@ public class CaixaDTOValidator : AbstractValidator<CaixaDTO>
 
         RuleFor(x => x.SaldoMinimo)
             .GreaterThan(0)
-            .WithMessage("O saldo mínimo não pode igual ou menor que zero.");
+            .WithMessage("O saldo mínimo não pode ser igual ou menor que zero.");
     }
 }
