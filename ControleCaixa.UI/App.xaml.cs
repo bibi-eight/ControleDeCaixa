@@ -1,8 +1,15 @@
 ﻿using System.Windows;
+using ControleCaixa.Business.Dtos;
+using ControleCaixa.Business.Interfaces;
+using ControleCaixa.Business.Services;
+using ControleCaixa.Business.Validators;
 using ControleCaixa.Data;
 using ControleCaixa.Data.Context;
 using ControleCaixa.Data.Interfaces;
 using ControleCaixa.Data.Repositories;
+using ControleCaixa.UI.ViewModels;
+using ControleCaixa.UI.Views;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,18 +44,29 @@ public partial class App : Application
 
         services.AddScoped<ICaixaRepository, CaixaRepository>();
         services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
+        
+        services.AddScoped<ICaixaService, CaixaService>();
+        services.AddScoped<IMovimentacaoService, MovimentacaoService>();
+        
+        services.AddScoped<IUnitOfWork>(provider =>
+            provider.GetRequiredService<AppDbContext>());
+
+        services.AddTransient<IValidator<CaixaDTO>, CaixaDTOValidator>();
+        services.AddTransient<IValidator<MovimentacaoDTO>, MovimentacaoDTOValidator>();
+        
 
         services.AddScoped<IUnitOfWork>(provider =>
             provider.GetRequiredService<AppDbContext>());
 
-        services.AddTransient<MainWindow>();
-
+        services.AddTransient<CaixaView>();
+        services.AddTransient<CaixaViewModel>();
+        
         _serviceProvider = services.BuildServiceProvider();
 
-        var mainWindow =
-            _serviceProvider.GetRequiredService<MainWindow>();
+        var caixaView =
+            _serviceProvider.GetRequiredService<CaixaView>();
 
-        mainWindow.Show();
+        caixaView.Show();
     }
 
     protected override void OnExit(ExitEventArgs e)

@@ -14,7 +14,7 @@ public class CaixaDTOValidator : AbstractValidator<CaixaDTO>
             .WithMessage("O nome deve ter no máximo 100 caracteres.");
 
         RuleFor(x => x.SaldoMinimo)
-            .GreaterThanOrEqualTo(0)
-            .WithMessage("O saldo mínimo não pode ser negativo.");
+            .GreaterThan(0)
+            .WithMessage("O saldo mínimo não pode igual ou menor que zero.");
     }
 }
