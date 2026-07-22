@@ -8,7 +8,7 @@ public interface IMovimentacaoRepository
 
     void Atualizar(Movimentacao entity);
 
-    void Apagar(Func<Movimentacao, bool> predicate);
+    void Apagar(int id);
     
     Task<Movimentacao> ObterPorId(int movimentacaoId);
     Task<IEnumerable<Movimentacao>> ObterPorCaixaId(int caixaId);

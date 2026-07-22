@@ -26,10 +26,10 @@ public class MovimentacaoRepository : IMovimentacaoRepository
         _context.Movimentacoes.Update(entity);
     }
 
-    public void Apagar(Func<Movimentacao, bool> predicate)
+    public void Apagar(int id)
     {
         var movimentacoes = _context.Movimentacoes
-            .Where(predicate);
+            .Where(x => x.Id == id );
 
         foreach (var movimentacao in movimentacoes)
         {

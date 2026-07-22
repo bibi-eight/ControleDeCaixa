@@ -8,7 +8,7 @@ public interface ICaixaRepository
 
     void Atualizar(Caixa entity);
 
-    void Apagar(Func<Caixa, bool> predicate);
+    void Apagar(int id);
     
     Task<Caixa> ObterPorId(int caixaId);
     Task<IEnumerable<Caixa>> ObterTodos();

@@ -25,10 +25,10 @@ public class CaixaRepository : ICaixaRepository
         _context.Update(entity);
     }
 
-    public void Apagar(Func<Caixa, bool> predicate)
+    public void Apagar(int id)
     {
         var caixas = _context.Caixas
-            .Where(predicate);
+            .Where(x => x.Id == id);
 
         foreach (var caixa in caixas)
         {
