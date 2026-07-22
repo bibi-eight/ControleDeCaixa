@@ -52,7 +52,7 @@ public class MovimentacaoService : IMovimentacaoService
         return movimentacoes;
     }
 
-    public async Task<Result> CadastrarMovimentacao(MovimentacaoDTO movimentacao)
+    public async Task<Result> Adicionar(MovimentacaoDTO movimentacao)
     {
         var validacao = await _validator.ValidateAsync(movimentacao);
 
@@ -80,7 +80,7 @@ public class MovimentacaoService : IMovimentacaoService
         return Result.Ok();
     }
 
-    public async Task<Result> EditarMovimentacao(MovimentacaoDTO movimentacao, int movimentacaoId)
+    public async Task<Result> Atualizar(MovimentacaoDTO movimentacao, int movimentacaoId)
     {
         var validacao = await _validator.ValidateAsync(movimentacao);
 
@@ -108,7 +108,7 @@ public class MovimentacaoService : IMovimentacaoService
         return Result.Ok();
     }
 
-    public async Task<Result> ExcluirAsync(int id)
+    public async Task<Result> Apagar(int id)
     {
         var movimentacao = await _repository.ObterPorId(id);
         

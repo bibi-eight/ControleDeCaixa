@@ -13,9 +13,9 @@ public interface IMovimentacaoService
     
     Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo);
     
-    Task<Result> CadastrarMovimentacao(MovimentacaoDTO movimentacao);
+    Task<Result> Adicionar(MovimentacaoDTO movimentacao);
     
-    Task<Result> EditarMovimentacao(MovimentacaoDTO movimentacao, int movimentacaoId);
+    Task<Result> Atualizar(MovimentacaoDTO movimentacao, int movimentacaoId);
     
-    Task<Result> ExcluirAsync(int id);
+    Task<Result> Apagar(int id);
 }
