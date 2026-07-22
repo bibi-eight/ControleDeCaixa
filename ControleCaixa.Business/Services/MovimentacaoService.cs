@@ -39,6 +39,13 @@ public class MovimentacaoService : IMovimentacaoService
         return movimentacao;
     }
 
+    public async Task<IEnumerable<Movimentacao>> ObterPorCaixaId(int caixaId)
+    {
+        var movimentacao = await _repository.ObterPorCaixaId(caixaId);
+
+        return movimentacao;    
+    }
+
     public async Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo)
     {
         var movimentacoes = await _repository.ObterPorTipoDeMovimentacaoDeUmCaixa(caixaId, tipo);

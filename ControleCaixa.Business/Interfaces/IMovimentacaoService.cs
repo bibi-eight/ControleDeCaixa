@@ -9,6 +9,7 @@ public interface IMovimentacaoService
     Task<IEnumerable<Movimentacao>> ObterMovimentacaos();
 
     Task<Movimentacao> ObterMovimentacaoPorId(int movimentacaoId);
+    Task<IEnumerable<Movimentacao>> ObterPorCaixaId(int caixaId);
     
     Task<IEnumerable<Movimentacao>> ObterPorTipoDeMovimentacaoDeUmCaixa(int caixaId, int tipo);
     
