@@ -103,7 +103,17 @@ public class MovimentacaoService : IMovimentacaoService
 
     public async Task<Result> ExcluirAsync(int id)
     {
-        throw new NotImplementedException();
+        var movimentacao = await _repository.ObterPorId(id);
+        
+        if (movimentacao == null) return Result.Fail("Movimentação não encontrada");
+        
+        _repository.Apagar(movimentacao.Id);
+        
+        var alteracoes = await _unitOfWork.SaveChangesAsync();
 
+        if (alteracoes <= 0)
+            return Result.Fail("Não foi possível apagar a movimentação.");
+        
+        return Result.Ok();
     }
 }

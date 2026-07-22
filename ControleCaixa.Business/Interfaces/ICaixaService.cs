@@ -1,4 +1,5 @@
 using ControleCaixa.Business.Dtos;
+using ControleCaixa.Business.Results;
 using ControleCaixa.Model.Entities;
 using ControleCaixa.Model.Enums;
 
@@ -10,9 +11,9 @@ public interface ICaixaService
 
     Task<Caixa> ObterCaixaPorId(int caixaId);
     
-    void CadastrarCaixa(CaixaDTO caixa);
+    Task<Result> Adicionar(CaixaDTO caixa);
     
-    void EditarCaixa(CaixaDTO caixa);
+    Task<Result> Atualizar(CaixaDTO caixa, int caixaId);
     
-    void ExcluirAsync(int id);
+    Task<Result> Apagar(int id);
 }

@@ -42,6 +42,6 @@ public class Caixa
         _movimentacoes.Remove(movimentacao);
     }
     
-    public void DefinirDataDeAlteracao(DateTime dataAlteracao) => DataAlteracao = dataAlteracao;
+    public void DefinirDataDeAlteracao() => DataAlteracao = DateTime.Now;
     
 }
