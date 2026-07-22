@@ -19,17 +19,10 @@ public class MovimentacaoServiceTests
 
     public MovimentacaoServiceTests()
     {
-        _movimentacaoRepositoryMock =
-            new Mock<IMovimentacaoRepository>();
-
-        _caixaRepositoryMock =
-            new Mock<ICaixaRepository>();
-
-        _unitOfWorkMock =
-            new Mock<IUnitOfWork>();
-
-        _validatorMock =
-            new Mock<IValidator<MovimentacaoDTO>>();
+        _movimentacaoRepositoryMock = new Mock<IMovimentacaoRepository>();
+        _caixaRepositoryMock = new Mock<ICaixaRepository>();
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
+        _validatorMock = new Mock<IValidator<MovimentacaoDTO>>();
 
         _service = new MovimentacaoService(
             _movimentacaoRepositoryMock.Object,
@@ -37,6 +30,7 @@ public class MovimentacaoServiceTests
             _unitOfWorkMock.Object,
             _validatorMock.Object);
     }
+    
     private static MovimentacaoDTO CriarDtoValido()
     {
         return new MovimentacaoDTO
@@ -45,7 +39,19 @@ public class MovimentacaoServiceTests
             Descricao = "Venda de produto",
             Tipo = TipoMovimentacao.Entrada,
             Categoria = Categoria.Vendas,
-            Valor = 150m
+            Valor = 150
+        };
+    }
+    
+    private static MovimentacaoDTO CriarDtoInvalido()
+    {
+        return new MovimentacaoDTO
+        {
+            CaixaId = 1,
+            Descricao = string.Empty,
+            Tipo = TipoMovimentacao.Entrada,
+            Categoria = Categoria.Vendas,
+            Valor = 150
         };
     }
 
@@ -61,7 +67,7 @@ public class MovimentacaoServiceTests
         _caixaRepositoryMock.Setup(x => x.ObterPorId(dto.CaixaId)).ReturnsAsync((Caixa?)null);
 
         // Act
-        var resultado = await _service.CadastrarMovimentacao(dto);
+        var resultado = await _service.Adicionar(dto);
 
         // Assert
         Assert.False(resultado.Success);
@@ -69,6 +75,39 @@ public class MovimentacaoServiceTests
         Assert.Contains("É necessário um caixa pra fazer essa movimentação", resultado.Errors);
 
         _caixaRepositoryMock.Verify(x => x.ObterPorId(dto.CaixaId), Times.Once);
+
+        _movimentacaoRepositoryMock.Verify(x => x.Adicionar(It.IsAny<Movimentacao>()), Times.Never);
+
+        _unitOfWorkMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+    }
+    
+    [Fact]
+    public async Task CadastrarMovimentacao_DeveRetornarFalha_QuandoDtoForInvalido()
+    {
+        // Arrange
+        var dto = CriarDtoInvalido();
+
+        var falhas = new List<ValidationFailure>
+        {
+            new(nameof(MovimentacaoDTO.Descricao), "A descrição é obrigatória."),
+
+            new(nameof(MovimentacaoDTO.Valor), "O valor deve ser maior que zero.")
+        };
+
+        _validatorMock.Setup(x => x.ValidateAsync(dto, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ValidationResult(falhas));
+
+        // Act
+        var resultado = await _service.Adicionar(dto);
+
+        // Assert
+        Assert.False(resultado.Success);
+
+        Assert.Contains("A descrição é obrigatória.", resultado.Errors);
+
+        Assert.Contains("O valor deve ser maior que zero.", resultado.Errors);
+
+        _caixaRepositoryMock.Verify(x => x.ObterPorId(It.IsAny<int>()), Times.Never);
 
         _movimentacaoRepositoryMock.Verify(x => x.Adicionar(It.IsAny<Movimentacao>()), Times.Never);
 
