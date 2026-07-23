@@ -58,15 +58,15 @@ public partial class App : Application
         services.AddScoped<IUnitOfWork>(provider =>
             provider.GetRequiredService<AppDbContext>());
 
-        services.AddTransient<CaixaView>();
-        services.AddTransient<CaixaViewModel>();
+        services.AddTransient<MainView>();
+        services.AddTransient<MainViewModel>();
         
         _serviceProvider = services.BuildServiceProvider();
 
-        var caixaView =
-            _serviceProvider.GetRequiredService<CaixaView>();
+        var mainView =
+            _serviceProvider.GetRequiredService<MainView>();
 
-        caixaView.Show();
+        mainView.Show();
     }
 
     protected override void OnExit(ExitEventArgs e)
