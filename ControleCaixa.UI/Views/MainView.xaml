@@ -1,0 +1,113 @@
+<Window x:Class="ControleCaixa.UI.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="clr-namespace:ControleCaixa.UI.Components"
+        Title="Bob's Market"
+        Width="900"
+        Height="620"
+        MinWidth="700"
+        MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F4F6">
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+
+                <TextBlock
+                    Text="Bob's Market"
+                    FontSize="30"
+                    FontWeight="Bold"
+                    Foreground="#111827"/>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    Text="Selecione um caixa para visualizar suas movimentações."
+                    FontSize="14"
+                    Foreground="#6B7280"/>
+
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                Height="42"
+                Padding="25,0"
+                Content="+ Novo caixa"
+                Background="#16A34A"
+                Foreground="White"
+                BorderThickness="0"
+                FontWeight="SemiBold"
+                Cursor="Hand"
+                Command="{Binding AbrirCadastroCommand}"/>
+
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            Height="1"
+            Margin="0,25,0,20"
+            Background="#D1D5DB"/>
+
+        <!-- Cards -->
+        <ScrollViewer
+            Grid.Row="2"
+            VerticalScrollBarVisibility="Auto">
+
+            <ItemsControl ItemsSource="{Binding Caixas}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Button
+                            Width="220"
+                            Height="135"
+                            Margin="0,0,15,15"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Command="{Binding DataContext.AbrirCaixaCommand,
+                            RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}">
+
+                            <components:CaixaCard/>
+
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </ScrollViewer>
+
+        <TextBlock
+            Grid.Row="3"
+            Margin="0,10,0,0"
+            Text="{Binding Mensagem}"
+            Foreground="#6B7280"
+            TextWrapping="Wrap"/>
+
+    </Grid>
+</Window>
