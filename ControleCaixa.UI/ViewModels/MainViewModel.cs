@@ -44,4 +44,29 @@ public partial class MainViewModel : ObservableObject
     {
         Mensagem = $"Caixa selecionado: {caixa.Nome}";
     }
+    
+    [RelayCommand]
+    private void EditarCaixa(Caixa caixa)
+    {
+        Mensagem = $"Editar caixa: {caixa.Nome}";
+    }
+
+    [RelayCommand]
+    private async Task RemoverCaixa(Caixa caixa)
+    {
+        var resultado = await _caixaService.Apagar(caixa.Id);
+
+        if (!resultado.Success)
+        {
+            Mensagem = string.Join(
+                Environment.NewLine,
+                resultado.Errors);
+
+            return;
+        }
+
+        Caixas.Remove(caixa);
+
+        Mensagem = "Caixa removido com sucesso.";
+    }
 }
