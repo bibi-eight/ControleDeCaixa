@@ -18,10 +18,19 @@ public class CaixaDetalhesDTO
 
     public string SaldoFormatado => $"{Saldo:C2}";
 
-    public string CorIndicador =>
-        Saldo <= SaldoMinimo
-            ? "#DC2626"
-            : "#16A34A";
+    public string CorIndicador
+    {
+        get
+        {
+            if (Saldo < SaldoMinimo)
+                return "#DC2626"; // Vermelho
+
+            if (Saldo == SaldoMinimo)
+                return "#EAB308"; // Amarelo
+
+            return "#16A34A"; // Verde
+        }
+    }
 
     public List<MovimentacaoCompletaDTO> Movimentacoes { get; set; } = [];
 }
