@@ -11,4 +11,9 @@ public partial class CaixaDetalhesView : Window
 
         DataContext = viewModel;
     }
+    
+    private void Voltar_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 }
