@@ -39,14 +39,15 @@ public class CaixaRepository : ICaixaRepository
     public async Task<Caixa> ObterPorId(int caixaId)
     {
         return await _context.Caixas
-            .Include(x => x.Movimentacoes)
+            .AsNoTracking()
+            .Include(x => x.Movimentacoes.Where(m => !m.Lixeira))
             .FirstOrDefaultAsync(caixa => caixa.Id == caixaId);
     }
 
     public async Task<IEnumerable<Caixa>> ObterTodos()
     {
         return await _context.Caixas
-            .Include(x => x.Movimentacoes)
+            .Include(x => x.Movimentacoes.Where(m => !m.Lixeira))
             .Where(x => !x.Lixeira).ToListAsync();
     }
 }
