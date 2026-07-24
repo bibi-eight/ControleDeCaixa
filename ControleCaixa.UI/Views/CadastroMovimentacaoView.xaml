@@ -1,0 +1,118 @@
+<Window x:Class="ControleCaixa.UI.Views.CadastroMovimentacaoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Titulo}"
+        Width="440"
+        Height="370"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#F3F4F6">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock
+                Text="{Binding Titulo}"
+                FontSize="26"
+                FontWeight="Bold"
+                Foreground="#111827"/>
+
+            <TextBlock
+                Margin="0,-10,0,0"
+                Text="Preencha os dados da movimentação."
+                Foreground="#6B7280"/>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,10,0,0">
+
+            <TextBlock
+                Text="Descrição"
+                FontWeight="SemiBold"
+                Foreground="#374151"/>
+
+            <TextBox
+                Height="40"
+                Margin="0,7,0,0"
+                Padding="10,7"
+                Text="{Binding Descricao,
+                               UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        
+        <StackPanel 
+            Grid.Row="2"
+            Margin="0,18,0,0">
+            
+            <TextBlock
+                Text="Categoria"
+                FontWeight="SemiBold"
+                Foreground="#374151"/>
+
+            <ComboBox
+                Height="40"
+                Margin="0,7,0,0"
+                ItemsSource="{Binding Categorias}"
+                SelectedItem="{Binding Categoria}"
+                Padding="8,4"/>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
+            Margin="0,18,0,0">
+
+            <TextBlock
+                Text="Valor"
+                FontWeight="SemiBold"
+                Foreground="#374151"/>
+
+            <TextBox
+                Height="40"
+                Margin="0,7,0,0"
+                Padding="10,7"
+                Text="{Binding Valor,
+                   UpdateSourceTrigger=LostFocus}"/>
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="4"
+            Margin="0,0,0,0"
+            Text="{Binding Mensagem}"
+            Foreground="#DC2626"
+            TextWrapping="Wrap"/>
+
+        <StackPanel
+            Grid.Row="4"
+            Margin="0, 10,0,0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+
+            <Button
+                Width="100"
+                Height="30"
+                Margin="0,0,10,0"
+                Content="Cancelar"
+                Command="{Binding CancelarCommand}"/>
+
+            <Button
+                Width="160"
+                Height="30"
+                Content="{Binding TextoBotao}"
+                Background="#16A34A"
+                Foreground="White"
+                BorderThickness="0"
+                FontWeight="SemiBold"
+                Command="{Binding SalvarCommand}"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

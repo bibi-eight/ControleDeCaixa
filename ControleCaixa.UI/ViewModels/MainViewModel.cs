@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ControleCaixa.Business.Dtos;
 using ControleCaixa.Business.Interfaces;
 using ControleCaixa.Model.Entities;
 using ControleCaixa.UI.Views;
@@ -21,7 +22,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private ObservableCollection<Caixa> caixas = [];
+    private ObservableCollection<CaixaDetalhesDTO> caixas = [];
     
     [ObservableProperty]
     private Caixa caixa ;
@@ -34,11 +35,14 @@ public partial class MainViewModel : ObservableObject
     {
         var resultado = await _caixaService.ObterCaixas();
 
-        Caixas = new ObservableCollection<Caixa>(resultado);
-
-        Mensagem = Caixas.Count == 0
-            ? "Nenhum caixa cadastrado."
-            : string.Empty;
+        Caixas = new ObservableCollection<CaixaDetalhesDTO>(
+            resultado.Select(caixa => new CaixaDetalhesDTO
+            {
+                Id = caixa.Id,
+                Nome = caixa.Nome,
+                SaldoMinimo = caixa.SaldoMinimo,
+                Saldo = caixa.Saldo
+            }));
     }
 
     [RelayCommand]
@@ -48,7 +52,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task AbrirCaixa(Caixa? caixa)
+    private async Task AbrirCaixa(CaixaDetalhesDTO? caixa)
     {
         if (caixa is null)
             return;
@@ -69,7 +73,7 @@ public partial class MainViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private async Task EditarCaixa(Caixa? caixa)
+    private async Task EditarCaixa(CaixaDetalhesDTO? caixa)
     {
         if (caixa is null)
             return;
@@ -91,7 +95,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task RemoverCaixa(Caixa caixa)
+    private async Task RemoverCaixa(CaixaDetalhesDTO caixa)
     {
         var confirmacao = MessageBox.Show(
             $"Essa ação irá deletar o caixa e suas movimentações, deseja deletar o \"{caixa.Nome}\"?",

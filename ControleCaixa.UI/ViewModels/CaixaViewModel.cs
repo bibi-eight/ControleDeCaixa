@@ -34,7 +34,12 @@ public partial class CaixaViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<MovimentacaoCompletaDTO> movimentacoes = [];
     
-    
+    public string SaldoFormatado => $"R$ {Saldo:N2}";
+
+    public string CorIndicador =>
+        Saldo <= SaldoMinimo
+            ? "#DC2626"
+            : "#22C55E";
 
     [RelayCommand]
     private async Task Cadastrar()

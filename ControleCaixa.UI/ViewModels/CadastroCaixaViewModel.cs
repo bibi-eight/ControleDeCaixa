@@ -50,7 +50,7 @@ public partial class CadastroCaixaViewModel : ObservableObject
         OnPropertyChanged(nameof(TextoBotao));
     }
 
-    public void PrepararEdicao(Caixa caixa)
+    public void PrepararEdicao(CaixaDetalhesDTO caixa)
     {
         _caixaId = caixa.Id;
 
