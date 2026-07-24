@@ -12,16 +12,18 @@ using Microsoft.Extensions.DependencyInjection;
 public partial class CaixaDetalhesViewModel : ObservableObject
 {
     private readonly ICaixaService _service;
+    private readonly IMovimentacaoService _movimentacaoService;
     private readonly IServiceProvider _serviceProvider;
 
     private int _caixaId;
 
     public CaixaDetalhesViewModel(
         ICaixaService service,
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider, IMovimentacaoService movimentacaoService)
     {
         _service = service;
         _serviceProvider = serviceProvider;
+        _movimentacaoService = movimentacaoService;
     }
 
     [ObservableProperty]
@@ -35,6 +37,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<MovimentacaoCompletaDTO> movimentacoes = [];
+    
+    [ObservableProperty]
+    private string mensagem = string.Empty;
 
     public async Task Carregar(int caixaId)
     {
@@ -72,6 +77,12 @@ public partial class CaixaDetalhesViewModel : ObservableObject
         await AbrirMovimentacao(TipoMovimentacao.Saida);
     }
 
+    // [RelayCommand]
+    // private async Task Editar(int movimentacaoId)
+    // {
+    //     await AbrirMovimentacaoPraEditar(movimentacaoId);
+    // }
+
     private async Task AbrirMovimentacao(TipoMovimentacao tipo)
     {
         var vm = _serviceProvider
@@ -90,5 +101,54 @@ public partial class CaixaDetalhesViewModel : ObservableObject
 
         if (resultado == true)
             await Carregar(_caixaId);
+    }
+    
+    // private async Task AbrirMovimentacaoPraEditar(int movimentacaoId)
+    // {
+    //     var vm = _serviceProvider
+    //         .GetRequiredService<CadastroMovimentacaoViewModel>();
+    //
+    //     vm.PrepararEdicao(movimentacaoId);
+    //
+    //     var janela = new CadastroMovimentacaoView(vm)
+    //     {
+    //         Owner = Application.Current.Windows
+    //             .OfType<CaixaDetalhesView>()
+    //             .FirstOrDefault()
+    //     };
+    //
+    //     var resultado = janela.ShowDialog();
+    //
+    //     if (resultado == true)
+    //         await Carregar(_caixaId);
+    // }
+    
+    [RelayCommand]
+    private async Task RemoverMovimentacao(
+        MovimentacaoCompletaDTO? movimentacao)
+    {
+        if (movimentacao is null)
+            return;
+
+        var resultado =
+            await _movimentacaoService.Apagar(movimentacao.Id);
+
+        if (!resultado.Success)
+        {
+            MessageBox.Show(
+                string.Join(Environment.NewLine, resultado.Errors));
+
+            return;
+        }
+
+        var item = Movimentacoes
+            .FirstOrDefault(x => x.Id == movimentacao.Id);
+
+        if (item is not null)
+            Movimentacoes.Remove(item);
+
+        MessageBox.Show(
+            $"Item encontrado: {item is not null}\n" +
+            $"Itens restantes: {Movimentacoes.Count}");
     }
 }

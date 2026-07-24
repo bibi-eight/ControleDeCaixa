@@ -26,8 +26,11 @@ public class MovimentacaoCompletaDTO
     public decimal Valor { get; set; }
 
     public TipoMovimentacao Tipo { get; set; }
+    public Categoria Categoria { get; set; }
 
     public DateTime Data { get; set; }
+    
+    public int CaixaId { get; set; }
     
     public string ValorFormatado =>
         Tipo == TipoMovimentacao.Saida
