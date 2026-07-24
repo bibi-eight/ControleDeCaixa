@@ -53,7 +53,7 @@
                     <Button
                         Width="28"
                         Height="28"
-                        Content="✕"
+                        Content="X"
                         ToolTip="Remover caixa"
                         Cursor="Hand"
                         Background="Red"

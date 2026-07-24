@@ -1,18 +1,23 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ControleCaixa.Business.Interfaces;
 using ControleCaixa.Model.Entities;
+using ControleCaixa.UI.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ControleCaixa.UI.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
     private readonly ICaixaService _caixaService;
+    private readonly IServiceProvider _serviceProvider;
 
-    public MainViewModel(ICaixaService caixaService)
+    public MainViewModel(ICaixaService caixaService, IServiceProvider serviceProvider)
     {
         _caixaService = caixaService;
+        _serviceProvider = serviceProvider;
     }
 
     [ObservableProperty]
@@ -46,14 +51,39 @@ public partial class MainViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private void EditarCaixa(Caixa caixa)
+    private async Task EditarCaixa(Caixa? caixa)
     {
-        Mensagem = $"Editar caixa: {caixa.Nome}";
+        if (caixa is null)
+            return;
+
+        var viewModel =
+            _serviceProvider.GetRequiredService<CadastroCaixaViewModel>();
+
+        viewModel.PrepararEdicao(caixa);
+
+        var janela = new CadastroCaixaView(viewModel)
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        var resultado = janela.ShowDialog();
+
+        if (resultado == true)
+            await CarregarCaixas();
     }
 
     [RelayCommand]
     private async Task RemoverCaixa(Caixa caixa)
     {
+        var confirmacao = MessageBox.Show(
+            $"Essa ação irá deletar o caixa e suas movimentações, deseja deletar o \"{caixa.Nome}\"?",
+            "Confirmar remoção",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
+
+        if (confirmacao == MessageBoxResult.No)
+            return;
+
         var resultado = await _caixaService.Apagar(caixa.Id);
 
         if (!resultado.Success)

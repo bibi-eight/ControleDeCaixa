@@ -61,6 +61,9 @@ public partial class App : Application
         services.AddTransient<MainView>();
         services.AddTransient<MainViewModel>();
         
+        services.AddTransient<CadastroCaixaViewModel>();
+        services.AddTransient<CadastroCaixaView>();
+        
         _serviceProvider = services.BuildServiceProvider();
 
         var mainView =
