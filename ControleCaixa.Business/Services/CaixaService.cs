@@ -3,6 +3,7 @@ using ControleCaixa.Business.Interfaces;
 using ControleCaixa.Business.Results;
 using ControleCaixa.Data.Interfaces;
 using ControleCaixa.Model.Entities;
+using ControleCaixa.Model.Enums;
 using FluentValidation;
 
 namespace ControleCaixa.Business.Services;
@@ -28,11 +29,36 @@ public class CaixaService : ICaixaService
         return await _repository.ObterTodos();
     }
 
-    public async Task<Caixa> ObterCaixaPorId(int caixaId)
+    public async Task<CaixaDetalhesDTO?> ObterCaixaPorId(int caixaId)
     {
         var caixa = await _repository.ObterPorId(caixaId);
-
-        return caixa;
+    
+        if (caixa is null)
+            return null;
+    
+        return new CaixaDetalhesDTO
+        {
+            Id = caixa.Id,
+            Nome = caixa.Nome,
+            SaldoMinimo = caixa.SaldoMinimo,
+    
+            Saldo = caixa.Movimentacoes.Sum(m =>
+                m.Tipo == TipoMovimentacao.Entrada
+                    ? m.Valor
+                    : -m.Valor),
+    
+            Movimentacoes = caixa.Movimentacoes
+                .OrderByDescending(m => m.DataCriacao)
+                .Select(m => new MovimentacaoCompletaDTO()
+                {
+                    Id = m.Id,
+                    Descricao = m.Descricao,
+                    Valor = m.Valor,
+                    Tipo = m.Tipo,
+                    Data = m.DataCriacao
+                })
+                .ToList()
+        };
     }
 
     public async Task<Result> Adicionar(CaixaDTO caixa)

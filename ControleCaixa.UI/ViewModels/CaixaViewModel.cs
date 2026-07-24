@@ -18,6 +18,9 @@ public partial class CaixaViewModel : ObservableObject
 
     [ObservableProperty]
     private string nome = string.Empty;
+    
+    [ObservableProperty]
+    private decimal saldo;
 
     [ObservableProperty]
     private decimal saldoMinimo;
@@ -27,6 +30,11 @@ public partial class CaixaViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<Caixa> caixas = [];
+    
+    [ObservableProperty]
+    private ObservableCollection<MovimentacaoCompletaDTO> movimentacoes = [];
+    
+    
 
     [RelayCommand]
     private async Task Cadastrar()
@@ -56,14 +64,26 @@ public partial class CaixaViewModel : ObservableObject
         Mensagem = "Caixa cadastrado com sucesso!";
     }
 
-    [RelayCommand]
-    private async Task Carregar()
+    public async Task Carregar(int caixaId)
     {
-        await CarregarCaixas();
+        var caixa = await _service.ObterCaixaPorId(caixaId);
 
-        Mensagem = Caixas.Count == 0
-            ? "Não existem caixas cadastrados."
-            : string.Empty;
+        if (caixa is null)
+            return;
+
+        Nome = caixa.Nome;
+        Saldo = caixa.Saldo;
+        SaldoMinimo = caixa.SaldoMinimo;
+
+        Movimentacoes = new ObservableCollection<MovimentacaoCompletaDTO>(
+            caixa.Movimentacoes.Select(m => new MovimentacaoCompletaDTO
+            {
+                Id = m.Id,
+                Descricao = m.Descricao,
+                Valor = m.Valor,
+                Tipo = m.Tipo,
+                Data = m.Data
+            }));
     }
 
     private async Task CarregarCaixas()

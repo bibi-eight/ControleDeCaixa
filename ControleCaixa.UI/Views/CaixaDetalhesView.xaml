@@ -1,0 +1,25 @@
+<Window x:Class="ControleCaixa.UI.Views.CaixaDetalhesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ControleCaixa.UI.Views"
+        mc:Ignorable="d"
+        Title="CaixaDetalhesView" Height="450" Width="800">
+    <Grid>
+        <TextBlock Text="{Binding Nome}"
+                   FontSize="28"
+                   FontWeight="Bold"/>
+
+        <TextBlock Text="Saldo atual"
+                   Margin="0,20,0,0"/>
+
+        <TextBlock Text="{Binding Saldo, StringFormat={}{0:C2}}"
+                   FontSize="32"
+                   FontWeight="Bold"/>
+
+        <TextBlock Margin="0,15,0,0"
+                   Text="{Binding SaldoMinimo,
+                          StringFormat=Saldo mínimo: {0:C2}}"/>
+    </Grid>
+</Window>

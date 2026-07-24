@@ -22,6 +22,9 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<Caixa> caixas = [];
+    
+    [ObservableProperty]
+    private Caixa caixa ;
 
     [ObservableProperty]
     private string mensagem = string.Empty;
@@ -45,9 +48,24 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AbrirCaixa(Caixa caixa)
+    private async Task AbrirCaixa(Caixa? caixa)
     {
-        Mensagem = $"Caixa selecionado: {caixa.Nome}";
+        if (caixa is null)
+            return;
+
+        var vm = _serviceProvider
+            .GetRequiredService<CaixaDetalhesViewModel>();
+
+        await vm.Carregar(caixa.Id);
+
+        var janela = new CaixaDetalhesView(vm)
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        janela.ShowDialog();
+
+        await CarregarCaixas();
     }
     
     [RelayCommand]

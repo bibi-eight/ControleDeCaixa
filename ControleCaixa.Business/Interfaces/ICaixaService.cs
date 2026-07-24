@@ -9,7 +9,7 @@ public interface ICaixaService
 {
     Task<IEnumerable<Caixa>> ObterCaixas();
 
-    Task<Caixa> ObterCaixaPorId(int caixaId);
+    Task<CaixaDetalhesDTO?> ObterCaixaPorId(int caixaId);
     
     Task<Result> Adicionar(CaixaDTO caixa);
     
