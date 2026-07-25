@@ -33,6 +33,10 @@ public partial class CadastroMovimentacaoViewModel : ObservableObject
     
     [ObservableProperty]
     private Categoria? categoria;
+    
+    private int _movimentacaoId;
+
+    public bool Editando => _movimentacaoId > 0;
 
     public IEnumerable<Categoria> Categorias =>
         Enum.GetValues<Categoria>();
@@ -57,6 +61,25 @@ public partial class CadastroMovimentacaoViewModel : ObservableObject
         Valor = 0;
         Mensagem = string.Empty;
 
+        OnPropertyChanged(nameof(Titulo));
+        OnPropertyChanged(nameof(TextoBotao));
+    }
+    
+    public void PrepararEdicao(
+        int caixaId,
+        MovimentacaoCompletaDTO movimentacao)
+    {
+        _movimentacaoId = movimentacao.Id;
+
+        _caixaId = caixaId;
+        _tipo = movimentacao.Tipo;
+
+        Descricao = movimentacao.Descricao;
+        Categoria = movimentacao.Categoria;
+        Valor = movimentacao.Valor;
+        Mensagem = string.Empty;
+
+        OnPropertyChanged(nameof(Editando));
         OnPropertyChanged(nameof(Titulo));
         OnPropertyChanged(nameof(TextoBotao));
     }
@@ -90,7 +113,7 @@ public partial class CadastroMovimentacaoViewModel : ObservableObject
             return;
         }
 
-        var dto = new MovimentacaoDTO
+        var dto = new MovimentacaoDTO()
         {
             CaixaId = _caixaId,
             Descricao = Descricao.Trim(),
@@ -99,8 +122,10 @@ public partial class CadastroMovimentacaoViewModel : ObservableObject
             Tipo = _tipo
         };
 
-        var resultado = await _service.Adicionar(dto);
-
+        var resultado = Editando
+            ? await _service.Atualizar(dto, _movimentacaoId)
+            : await _service.Adicionar(dto);
+        
         if (!resultado.Success)
         {
             Mensagem = string.Join(

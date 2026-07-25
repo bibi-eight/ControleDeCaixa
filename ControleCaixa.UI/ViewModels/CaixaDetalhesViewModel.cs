@@ -58,7 +58,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
             caixa.Movimentacoes.Select(m => new MovimentacaoCompletaDTO
             {
                 Id = m.Id,
+                CaixaId = caixa.Id,
                 Descricao = m.Descricao,
+                Categoria = m.Categoria,
                 Valor = m.Valor,
                 Tipo = m.Tipo,
                 Data = m.Data
@@ -76,12 +78,6 @@ public partial class CaixaDetalhesViewModel : ObservableObject
     {
         await AbrirMovimentacao(TipoMovimentacao.Saida);
     }
-
-    // [RelayCommand]
-    // private async Task Editar(int movimentacaoId)
-    // {
-    //     await AbrirMovimentacaoPraEditar(movimentacaoId);
-    // }
 
     private async Task AbrirMovimentacao(TipoMovimentacao tipo)
     {
@@ -103,25 +99,27 @@ public partial class CaixaDetalhesViewModel : ObservableObject
             await Carregar(_caixaId);
     }
     
-    // private async Task AbrirMovimentacaoPraEditar(int movimentacaoId)
-    // {
-    //     var vm = _serviceProvider
-    //         .GetRequiredService<CadastroMovimentacaoViewModel>();
-    //
-    //     vm.PrepararEdicao(movimentacaoId);
-    //
-    //     var janela = new CadastroMovimentacaoView(vm)
-    //     {
-    //         Owner = Application.Current.Windows
-    //             .OfType<CaixaDetalhesView>()
-    //             .FirstOrDefault()
-    //     };
-    //
-    //     var resultado = janela.ShowDialog();
-    //
-    //     if (resultado == true)
-    //         await Carregar(_caixaId);
-    // }
+    [RelayCommand]
+    private async Task EditarMovimentacao(MovimentacaoCompletaDTO? movimentacao)
+    {
+        if (movimentacao is null)
+            return;
+
+        var vm = _serviceProvider
+            .GetRequiredService<CadastroMovimentacaoViewModel>();
+
+        vm.PrepararEdicao(movimentacao.CaixaId, movimentacao);
+
+        var janela = new CadastroMovimentacaoView(vm)
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        var resultado = janela.ShowDialog();
+
+        if (resultado == true)
+            await Carregar(_caixaId);
+    }
     
     [RelayCommand]
     private async Task RemoverMovimentacao(
