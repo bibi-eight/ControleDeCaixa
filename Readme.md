@@ -6,17 +6,6 @@ O projeto foi desenvolvido utilizando boas práticas de arquitetura em camadas, 
 
 ---
 
-## 📷 Demonstração
-
-> Adicione aqui algumas imagens da aplicação.
-
-- Tela inicial
-- Cadastro de caixas
-- Detalhes do caixa
-- Cadastro de movimentações
-
----
-
 ## ✨ Funcionalidades
 
 ### Caixas
