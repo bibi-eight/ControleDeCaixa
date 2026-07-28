@@ -46,12 +46,6 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AbrirCadastro()
-    {
-        Mensagem = "Cadastro ainda não implementado.";
-    }
-
-    [RelayCommand]
     private async Task AbrirCaixa(CaixaDetalhesDTO? caixa)
     {
         if (caixa is null)
@@ -70,6 +64,28 @@ public partial class MainViewModel : ObservableObject
         janela.ShowDialog();
 
         await CarregarCaixas();
+    }
+    
+    [RelayCommand]
+    private async Task AbrirCadastro()
+    {
+        if (caixa is not null)
+            return;
+
+        var viewModel =
+            _serviceProvider.GetRequiredService<CadastroCaixaViewModel>();
+
+        viewModel.PrepararCadastro();
+
+        var janela = new CadastroCaixaView(viewModel)
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        var resultado = janela.ShowDialog();
+
+        if (resultado == true)
+            await CarregarCaixas();    
     }
     
     [RelayCommand]
