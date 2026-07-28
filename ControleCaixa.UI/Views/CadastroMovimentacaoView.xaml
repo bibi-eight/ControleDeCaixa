@@ -41,7 +41,7 @@
                 Foreground="#374151"/>
 
             <TextBox
-                Height="40"
+                Height="30"
                 Margin="0,7,0,0"
                 Padding="10,7"
                 Text="{Binding Descricao,
@@ -58,7 +58,7 @@
                 Foreground="#374151"/>
 
             <ComboBox
-                Height="40"
+                Height="30"
                 Margin="0,7,0,0"
                 ItemsSource="{Binding Categorias}"
                 SelectedItem="{Binding Categoria}"
@@ -75,7 +75,7 @@
                 Foreground="#374151"/>
 
             <TextBox
-                Height="40"
+                Height="30"
                 Margin="0,7,0,0"
                 Padding="10,7"
                 Text="{Binding Valor,
