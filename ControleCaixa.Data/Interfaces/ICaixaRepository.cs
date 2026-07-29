@@ -13,5 +13,6 @@ public interface ICaixaRepository
     Task<Caixa> ObterPorId(int caixaId);
     Task<IEnumerable<Caixa>> ObterTodos();
     Task<IEnumerable<Movimentacao>> ObterMovimentacoesDeUmCaixaPorMes(int caixaId, int mes);
-    
+    Task<Caixa> ObterPorIdPraEditar(int caixaId);
+
 }

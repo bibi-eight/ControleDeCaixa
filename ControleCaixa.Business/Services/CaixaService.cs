@@ -88,7 +88,7 @@ public class CaixaService : ICaixaService
         if (!validacao.IsValid)
             return Result.Fail(validacao);    
         
-        var caixaExistente = await _repository.ObterPorId(caixaId);
+        var caixaExistente = await _repository.ObterPorIdPraEditar(caixaId);
 
         if (caixaExistente == null) return Result.Fail("Caixa pra edição não encontrado");
         

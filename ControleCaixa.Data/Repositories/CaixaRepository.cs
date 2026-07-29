@@ -48,6 +48,12 @@ public class CaixaRepository : ICaixaRepository
             .Include(x => x.Movimentacoes.Where(m => !m.Lixeira))
             .FirstOrDefaultAsync(caixa => caixa.Id == caixaId);
     }
+    
+    public async Task<Caixa> ObterPorIdPraEditar(int caixaId)
+    {
+        return await _context.Caixas
+            .FirstOrDefaultAsync(caixa => caixa.Id == caixaId);
+    }
 
     public async Task<IEnumerable<Caixa>> ObterTodos()
     {
