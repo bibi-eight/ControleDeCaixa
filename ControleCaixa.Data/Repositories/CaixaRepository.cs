@@ -56,18 +56,6 @@ public class CaixaRepository : ICaixaRepository
             .Where(x => !x.Lixeira).ToListAsync();
     }
 
-    public async Task<int> ObterQuantidadeMovimentacoes(int caixaId)
-    {
-        var sql = """
-                  select count(*) 
-                  from Movimentacoes 
-                  where Lixeira = 0 AND CaixaId = @caixaId
-                  """;
-        
-        await using var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        return await connection.QueryFirstAsync<int>(sql, new {caixaId});
-    }
-
     //TODO
     public Task<IEnumerable<Movimentacao>> ObterMovimentacoesDeUmCaixaPorMes(int caixaId, int mes)
     {
