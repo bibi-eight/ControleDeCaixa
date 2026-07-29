@@ -10,7 +10,7 @@ public class Movimentacao
 
     public TipoMovimentacao Tipo { get; private set; }
 
-    public Categoria Categoria { get; private set; }
+    public Categoria Categoria { get;  set; }
 
     public decimal Valor { get; private set; }
     

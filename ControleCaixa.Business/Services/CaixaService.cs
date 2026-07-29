@@ -53,6 +53,7 @@ public class CaixaService : ICaixaService
                 {
                     Id = m.Id,
                     Descricao = m.Descricao,
+                    Categoria = m.Categoria,
                     Valor = m.Valor,
                     Tipo = m.Tipo,
                     Data = m.DataCriacao

@@ -61,7 +61,9 @@
                 Height="30"
                 Margin="0,7,0,0"
                 ItemsSource="{Binding Categorias}"
-                SelectedItem="{Binding Categoria}"
+                SelectedItem="{Binding Categoria,
+                           Mode=TwoWay,
+                           UpdateSourceTrigger=PropertyChanged}"
                 Padding="8,4"/>
         </StackPanel>
 

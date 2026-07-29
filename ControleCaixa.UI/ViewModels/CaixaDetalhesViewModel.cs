@@ -84,7 +84,7 @@ public partial class CaixaDetalhesViewModel : ObservableObject
         var vm = _serviceProvider
             .GetRequiredService<CadastroMovimentacaoViewModel>();
 
-        vm.Preparar(_caixaId, tipo);
+        vm.Preparar(_caixaId, tipo, null);
 
         var janela = new CadastroMovimentacaoView(vm)
         {

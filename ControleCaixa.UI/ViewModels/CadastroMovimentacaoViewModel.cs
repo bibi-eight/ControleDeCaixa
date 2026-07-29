@@ -52,13 +52,15 @@ public partial class CadastroMovimentacaoViewModel : ObservableObject
 
     public void Preparar(
         int caixaId,
-        TipoMovimentacao tipo)
+        TipoMovimentacao tipo,
+        Categoria? categoria)
     {
         _caixaId = caixaId;
         _tipo = tipo;
 
         Descricao = string.Empty;
         Valor = 0;
+        Categoria = null;
         Mensagem = string.Empty;
 
         OnPropertyChanged(nameof(Titulo));

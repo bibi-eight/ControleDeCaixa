@@ -251,6 +251,13 @@
 
                                         <TextBlock
                                             Margin="0,5,0,0"
+                                            Text="{Binding Categoria}"
+                                            HorizontalAlignment="Right"
+                                            FontSize="13"
+                                            Foreground="#6B7280"/>
+                                        
+                                        <TextBlock
+                                            Margin="0,5,0,0"
                                             Text="{Binding Tipo}"
                                             HorizontalAlignment="Right"
                                             FontSize="13"
