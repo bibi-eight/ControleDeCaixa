@@ -1,4 +1,4 @@
-# 🛒 Bob's Market - Controle de Caixa
+# 🛒 Bibi's Market - Controle de Caixa
 
 Sistema desktop desenvolvido em **C#**, **.NET 8** e **WPF**, com foco no gerenciamento de caixas e movimentações financeiras de um mercado.
 
