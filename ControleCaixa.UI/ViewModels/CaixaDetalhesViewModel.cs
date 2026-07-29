@@ -43,6 +43,12 @@ public partial class CaixaDetalhesViewModel : ObservableObject
     
     [ObservableProperty]
     private int quantidadeMovimentacoes;
+    
+    public bool ExibirAlertaSaldoMinimo =>
+        Saldo < SaldoMinimo;
+
+    public string MensagemSaldoMinimo =>
+        $"O saldo atual ({Saldo:C2}) está abaixo do saldo mínimo configurado ({SaldoMinimo:C2}).";
 
     public async Task Carregar(int caixaId)
     {
@@ -59,6 +65,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
         Nome = caixa.Nome;
         Saldo = caixa.Saldo;
         SaldoMinimo = caixa.SaldoMinimo;
+        
+        OnPropertyChanged(nameof(ExibirAlertaSaldoMinimo));
+        OnPropertyChanged(nameof(MensagemSaldoMinimo));
 
         Movimentacoes = new ObservableCollection<MovimentacaoCompletaDTO>(
             caixa.Movimentacoes.Select(m => new MovimentacaoCompletaDTO
