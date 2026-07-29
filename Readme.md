@@ -195,6 +195,18 @@ dotnet ef database update
 
 ---
 
+## 🚀 Futuras melhorias
+
+Algumas funcionalidades que podem ser implementadas em versões futuras do projeto:
+
+- 📅 Filtro de movimentações por período.
+- 📊 Dashboard com gráficos e indicadores financeiros.
+- 🔎 Busca por descrição e categoria.
+- 🏷️ Cadastro de categorias personalizadas.
+- 💰 Transferência de saldo entre caixas.
+- 🔔 Notificações quando o saldo estiver abaixo do mínimo.
+- 🧪 Maior cobertura de testes unitários e de integração.
+
 ## 👩‍💻 Desenvolvido por
 
 **Brenda Regina Ribeiro de Brito**
