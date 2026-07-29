@@ -206,6 +206,7 @@ Algumas funcionalidades que podem ser implementadas em versões futuras do proje
 - 💰 Transferência de saldo entre caixas.
 - 🔔 Notificações quando o saldo estiver abaixo do mínimo.
 - 🧪 Maior cobertura de testes unitários e de integração.
+- 🌙 Implementação de tema escuro (Dark Mode).
 
 ## 👩‍💻 Desenvolvido por
 
