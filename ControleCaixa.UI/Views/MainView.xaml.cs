@@ -15,12 +15,20 @@ public partial class MainView : Window
         DataContext = viewModel;
 
         Loaded += MainView_Loaded;
+        Closed += MainView_Closed;
     }
 
     private async void MainView_Loaded(
         object sender,
         RoutedEventArgs e)
     {
-        await _viewModel.CarregarCaixasCommand.ExecuteAsync(null);
+        await _viewModel.IniciarAtualizacao();
+    }
+
+    private void MainView_Closed(
+        object? sender,
+        EventArgs e)
+    {
+        _viewModel.PararAtualizacao();
     }
 }

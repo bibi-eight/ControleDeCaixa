@@ -7,6 +7,7 @@ using ControleCaixa.Business.Interfaces;
 using ControleCaixa.Model.Entities;
 using ControleCaixa.UI.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Threading;
 
 namespace ControleCaixa.UI.ViewModels;
 
@@ -15,36 +16,84 @@ public partial class MainViewModel : ObservableObject
     private readonly ICaixaService _caixaService;
     private readonly IServiceProvider _serviceProvider;
 
-    public MainViewModel(ICaixaService caixaService, IServiceProvider serviceProvider)
+    private readonly DispatcherTimer _timer;
+    private bool _carregando;
+
+    public MainViewModel(
+        ICaixaService caixaService,
+        IServiceProvider serviceProvider)
     {
         _caixaService = caixaService;
         _serviceProvider = serviceProvider;
+
+        _timer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(5)
+        };
+
+        _timer.Tick += Timer_Tick;
     }
 
     [ObservableProperty]
     private ObservableCollection<CaixaDetalhesDTO> caixas = [];
-    
+
     [ObservableProperty]
-    private Caixa caixa ;
+    private Caixa? caixa;
 
     [ObservableProperty]
     private string mensagem = string.Empty;
 
+    private async void Timer_Tick(object? sender, EventArgs e)
+    {
+        Mensagem = $"Atualizado em {DateTime.Now:HH:mm:ss}";
+
+        await CarregarCaixas();
+    }
+
+    public async Task IniciarAtualizacao()
+    {
+        await CarregarCaixas();
+
+        if (!_timer.IsEnabled)
+            _timer.Start();
+    }
+
+    public void PararAtualizacao()
+    {
+        _timer.Stop();
+    }
+
     [RelayCommand]
     private async Task CarregarCaixas()
     {
-        var resultado = await _caixaService.ObterCaixas();
+        if (_carregando)
+            return;
 
-        Caixas = new ObservableCollection<CaixaDetalhesDTO>(
-            resultado.Select(caixa => new CaixaDetalhesDTO
-            {
-                Id = caixa.Id,
-                Nome = caixa.Nome,
-                SaldoMinimo = caixa.SaldoMinimo,
-                Saldo = caixa.Saldo
-            }));
+        try
+        {
+            _carregando = true;
+
+            var resultado = await _caixaService.ObterCaixas();
+
+            Caixas = new ObservableCollection<CaixaDetalhesDTO>(
+                resultado.Select(caixa => new CaixaDetalhesDTO
+                {
+                    Id = caixa.Id,
+                    Nome = caixa.Nome,
+                    SaldoMinimo = caixa.SaldoMinimo,
+                    Saldo = caixa.Saldo
+                }));
+        }
+        catch (Exception ex)
+        {
+            Mensagem = $"Erro ao atualizar caixas: {ex.Message}";
+        }
+        finally
+        {
+            _carregando = false;
+        }
     }
-
+    
     [RelayCommand]
     private async Task AbrirCaixa(CaixaDetalhesDTO? caixa)
     {
@@ -69,9 +118,6 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task AbrirCadastro()
     {
-        if (caixa is not null)
-            return;
-
         var viewModel =
             _serviceProvider.GetRequiredService<CadastroCaixaViewModel>();
 

@@ -51,7 +51,7 @@ public class CaixaRepository : ICaixaRepository
 
     public async Task<IEnumerable<Caixa>> ObterTodos()
     {
-        return await _context.Caixas
+        return await _context.Caixas.AsNoTracking()
             .Include(x => x.Movimentacoes.Where(m => !m.Lixeira))
             .Where(x => !x.Lixeira).ToListAsync();
     }
