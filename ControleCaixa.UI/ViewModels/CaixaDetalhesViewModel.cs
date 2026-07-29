@@ -40,6 +40,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
     
     [ObservableProperty]
     private string mensagem = string.Empty;
+    
+    [ObservableProperty]
+    private int quantidadeMovimentacoes;
 
     public async Task Carregar(int caixaId)
     {
@@ -47,6 +50,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
 
         if (caixa is null)
             return;
+        
+        QuantidadeMovimentacoes =
+            await _movimentacaoService.ObterQuantidadeMovimentacoes(_caixaId);
 
         _caixaId = caixa.Id;
 
@@ -92,7 +98,6 @@ public partial class CaixaDetalhesViewModel : ObservableObject
                 .OfType<CaixaDetalhesView>()
                 .FirstOrDefault()
         };
-
         var resultado = janela.ShowDialog();
 
         if (resultado == true)
@@ -148,5 +153,9 @@ public partial class CaixaDetalhesViewModel : ObservableObject
         MessageBox.Show(
             $"Item encontrado: {item is not null}\n" +
             $"Itens restantes: {Movimentacoes.Count}");
+        
+        QuantidadeMovimentacoes--;
+            await Carregar(_caixaId);
+        
     }
 }

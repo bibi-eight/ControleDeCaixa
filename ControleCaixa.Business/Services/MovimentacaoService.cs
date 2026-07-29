@@ -123,4 +123,10 @@ public class MovimentacaoService : IMovimentacaoService
         
         return Result.Ok();
     }
+
+    public async Task<int> ObterQuantidadeMovimentacoes(int caixaId)
+    {
+        var movimentacoes = await _repository.ObterQuantidadeMovimentacoes(caixaId);
+        return movimentacoes;    
+    }
 }

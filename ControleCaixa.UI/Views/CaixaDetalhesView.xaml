@@ -120,12 +120,33 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                VerticalAlignment="Center"
-                Text="Movimentações"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Foreground="#111827"/>
+            <StackPanel
+                Grid.Column="0"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="Movimentações"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#111827"/>
+
+                <Border
+                    Margin="10,0,0,0"
+                    Padding="8,2"
+                    Background="#E5E7EB"
+                    CornerRadius="12"
+                    VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="{Binding QuantidadeMovimentacoes}"
+                        FontSize="13"
+                        FontWeight="Bold"
+                        Foreground="#374151"
+                        HorizontalAlignment="Center"/>
+                </Border>
+
+            </StackPanel>
 
             <Button
                 Grid.Column="1"

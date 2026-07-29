@@ -18,4 +18,6 @@ public interface IMovimentacaoService
     Task<Result> Atualizar(MovimentacaoDTO movimentacao, int movimentacaoId);
     
     Task<Result> Apagar(int id);
+    Task<int> ObterQuantidadeMovimentacoes(int caixaId);
+    
 }
