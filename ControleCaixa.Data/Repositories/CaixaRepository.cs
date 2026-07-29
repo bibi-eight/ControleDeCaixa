@@ -1,17 +1,22 @@
 using ControleCaixa.Data.Context;
 using ControleCaixa.Data.Interfaces;
 using ControleCaixa.Model.Entities;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ControleCaixa.Data.Repositories;
 
 public class CaixaRepository : ICaixaRepository
 {
     private readonly AppDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public CaixaRepository(AppDbContext context)
+    public CaixaRepository(AppDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
     
     
@@ -49,5 +54,23 @@ public class CaixaRepository : ICaixaRepository
         return await _context.Caixas
             .Include(x => x.Movimentacoes.Where(m => !m.Lixeira))
             .Where(x => !x.Lixeira).ToListAsync();
+    }
+
+    public async Task<int> ObterQuantidadeMovimentacoes(int caixaId)
+    {
+        var sql = """
+                  select count(*) 
+                  from Movimentacoes 
+                  where Lixeira = 0 AND CaixaId = @caixaId
+                  """;
+        
+        await using var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        return await connection.QueryFirstAsync<int>(sql, new {caixaId});
+    }
+
+    //TODO
+    public Task<IEnumerable<Movimentacao>> ObterMovimentacoesDeUmCaixaPorMes(int caixaId, int mes)
+    {
+        throw new NotImplementedException();
     }
 }

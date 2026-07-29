@@ -41,6 +41,8 @@ public partial class App : Application
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connectionString));
+        
+        services.AddSingleton<IConfiguration>(configuration);
 
         services.AddScoped<ICaixaRepository, CaixaRepository>();
         services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
